@@ -1,4 +1,3 @@
-
 import SwiperComp3 from "./SwiperComp3";
 const Cart3 = () => {
   const productData = [

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useFirst } from "../Context/FIrstContext";
 
-function Login() {
+function AdminLogin() {
   const { login, isAuthenticated } = useFirst()
   const [showPassword, setShowPassword] = useState(false)
   const [userData, setUserData] = useState({
@@ -10,7 +10,7 @@ function Login() {
     password: ""
   })
   const handleChange = (e) => {
-    const name = e.target.name
+    const  name = e.target.name
     const value = e.target.value
     setUserData((prev) => ({ 
       ...prev, [name]: value }))
@@ -22,13 +22,19 @@ function Login() {
   
   const Sign = [
     { name: "Sign Up", path: "/signup" }]
-  
+  console.log(isAuthenticated)
+
   const navigate = useNavigate()
   useEffect(() => {
-    if (isAuthenticated) {
-      navigate("/home")
+    if (isAuthenticated == true) {
+      navigate("/")
     }
-  }, [isAuthenticated, navigate])
+    else {
+      navigate("/login")
+    }
+  }, [isAuthenticated])
+
+
 
   return (
     <>
@@ -46,6 +52,7 @@ function Login() {
                 placeholder="Email or Phone Number"
                 name="email"
                 className="border-b-1 pb-2 outline-0 text-[#7D8184] text-[16px] p-2 border-gray-300"
+
               />
               <div className=" relative w-full max-w-md ">
                 <input
@@ -65,6 +72,8 @@ function Login() {
               <div className="flex-row gap-7  items-center flex">
                 <div className=" h-[56px] w-[143px] text-center  cursor-pointer p-4.5 bg-[#DB4444] rounded-[6px] mt-6" onClick={()=>handleLogin()}>
                   <button
+
+
                     className="text-white text-[16px] font-semibold cursor-pointer">Log in</button>
 
                 </div>  <span className="text-[17px] text-[#DB4444] text-center cursor-pointer mt-6">Forget Password?</span></div>
@@ -73,13 +82,16 @@ function Login() {
               <span className="text-[#747373] text-[16px] font-medium">Go back to</span>
               <div className="underline decoration-[1px]  cursor-pointer text-[16px] font-medium decoration-gray-900 underline-offset-4">
                 {Sign.map((signup) => (
+
                   <span
                     key={signup.path}
                     onClick={() => navigate(`${signup.path}`)}
                   >
                     {signup.name}
                   </span>
-                ))}
+                )
+
+                )}
               </div>
             </div>
           </div>
@@ -88,4 +100,4 @@ function Login() {
     </>
   )
 }
-export default Login;
+export default AdminLogin;

@@ -10,6 +10,8 @@ const FirstContextProvider = ({ children }) => {
     const [isAuthenticated, setIsAuthenticated] = useState(false)
     const [alluser, setAlluser] = useState()
     const [userById,setUserById]=useState()
+    const [user, setUser] = useState(null)
+    const [isLoading, setIsLoading] = useState(false)
     const navigate = useNavigate()
     useEffect(() => {
         getAllUsers()
@@ -19,6 +21,7 @@ const FirstContextProvider = ({ children }) => {
         try {
             const loginreq = await axios.post("http://localhost:8080/api/user/login", userData)
             console.log(loginreq)
+            setUser(loginreq.data.user)
             setIsAuthenticated(true)
             toast.success(loginreq.data.message)
         }
@@ -72,8 +75,7 @@ const FirstContextProvider = ({ children }) => {
     const logout = () => {
         //do logout logic
         setIsAuthenticated(false)
-        navigate("/login")
-        localStorage.removeItem("authenticated")
+   
 
     }
     

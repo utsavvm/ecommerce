@@ -1,4 +1,4 @@
- function togglePassword() {
+function togglePassword() {
     const input = document.getElementById("passwordInput");
     if (input.type === "password") {
       input.type = "text";
